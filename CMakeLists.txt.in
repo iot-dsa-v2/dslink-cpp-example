@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 2.8.2)
+
+project(sdk-dslink-cpp NONE)
+
+include(ExternalProject)
+ExternalProject_Add(sdk-dslink-cpp
+  GIT_REPOSITORY    https://github.com/iot-dsa-v2/sdk-dslink-cpp.git
+  GIT_TAG           develop
+  SOURCE_DIR        "${CMAKE_BINARY_DIR}/deps/sdk-dslink-cpp"
+  BINARY_DIR        "${CMAKE_BINARY_DIR}/deps/sdk-dslink-cpp"
+  CONFIGURE_COMMAND ""
+  BUILD_COMMAND     ""
+  INSTALL_COMMAND   ""
+  TEST_COMMAND      ""
+)

@@ -7,12 +7,13 @@ include_directories(${OPENSSL_INCLUDE_DIR})
 set(LIBS ${LIBS} ${OPENSSL_LIBRARIES})
 
 # sdk-dslink-cpp setup
-set(DSA_SDK_ROOT "../deps/sdk-dslink-cpp")
+set(DSA_SDK_ROOT "${CMAKE_CURRENT_BINARY_DIR}/../deps/sdk-dslink-cpp")
 set(DSA_SDK_NAME "${CMAKE_STATIC_LIBRARY_PREFIX}dsa_sdk${CMAKE_STATIC_LIBRARY_SUFFIX}")
 set(DSA_SDK_LIBRARIES "${DSA_SDK_ROOT}/lib/${DSA_SDK_NAME}")
+
 list(APPEND DSA_SDK_INCLUDE_DIRS
             "${DSA_SDK_ROOT}/include"
-            "${DSA_SDK_ROOT}/include/dsa/internal")
+            "${DSA_SDK_ROOT}/src/sdk")
 
 foreach (dir  ${DSA_SDK_INCLUDE_DIRS})
   include_directories(${dir})
@@ -25,3 +26,4 @@ set(SOURCES "requester.cc")
 
 add_executable(${TARGET_NAME} ${SOURCES})
 target_link_libraries(${TARGET_NAME} ${LIBS})
+
