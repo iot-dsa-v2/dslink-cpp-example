@@ -9,4 +9,4 @@
    - use cmake-build only-deps/sdk-dslink-cpp/src/sdk/dsa_sdk.lib to build dsa_sdk.lib
    - build src/requester.exe
 
-4. On Linux, run './install.sh'. This script builds 1) dsa_sdk library, 2) executable requester and 3) execute the requster
+4. On Linux, run './install.sh'. This script builds 1) dsa_sdk library, 2) executable requester and 3) execute the requester
