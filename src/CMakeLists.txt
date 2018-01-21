@@ -1,35 +1,32 @@
-find_package(Boost 1.6 REQUIRED COMPONENTS system thread date_time)
-include_directories(${Boost_INCLUDE_DIRS})
-set(LIBS ${TEST_LIBS} ${Boost_LIBRARIES})
+cmake_minimum_required(VERSION 3.6.2)
 
-find_package(OpenSSL REQUIRED)
-include_directories(${OPENSSL_INCLUDE_DIR})
-set(LIBS ${LIBS} ${OPENSSL_LIBRARIES})
+project(dslink-cpp-example)
 
-# sdk-dslink-cpp setup
-set(DSA_SDK_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../deps/sdk-dslink-cpp")
-if (UNIX)
-	set(DSA_SDK_NAME "${CMAKE_STATIC_LIBRARY_PREFIX}dsa_sdk${CMAKE_STATIC_LIBRARY_SUFFIX}")
-	set(DSA_SDK_LIBRARIES "${DSA_SDK_ROOT}/lib/${DSA_SDK_NAME}")
-endif (UNIX)
 
-if (WIN32)
-	set(DSA_SDK_LIBRARIES $<TARGET_FILE:dsa_sdk>)
-endif (WIN32)
+set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
+set(DSA_SDK_SOURCE ${PROJECT_SOURCE_DIR}/../deps/sdk-dslink-cpp/src)
+set(DSA_SDK_INCLUDE ${PROJECT_SOURCE_DIR}/../deps/sdk-dslink-cpp/include)
+set(DSA_SDK_DEPS ${PROJECT_SOURCE_DIR}/../deps/sdk-dslink-cpp/deps)
 
-list(APPEND DSA_SDK_INCLUDE_DIRS
-            "${DSA_SDK_ROOT}/include"
-            "${DSA_SDK_ROOT}/src/sdk")
+include_directories(SYSTEM ${OPENSSL_INCLUDE_DIR})
+include_directories(${PROJECT_INCLUDE_DIR})
+include_directories(${DSA_SDK_DEPS}/msgpack/include)
+include_directories(${DSA_SDK_DEPS}/jansson-build/include)
+include_directories(${Boost_INCLUDE_DIR})
 
-foreach (dir  ${DSA_SDK_INCLUDE_DIRS})
-  include_directories(${dir})
-endforeach ()
+set(SOURCES example_main.cc)
 
-# Requester
-set(LIBS ${DSA_SDK_LIBRARIES} ${LIBS})
-set(TARGET_NAME "requester")
-set(SOURCES "requester.cc")
+include_directories("${CMAKE_SOURCE_DIR}/src")
+include_directories("./include")
+include_directories("${DSA_SDK_SOURCE}/sdk")
+include_directories("${DSA_SDK_INCLUDE}")
 
-add_executable(${TARGET_NAME} ${SOURCES})
-target_link_libraries(${TARGET_NAME} ${LIBS})
+add_executable(example_dslink ${SOURCES})
 
+target_link_libraries(example_dslink dsa_sdk)
+target_link_libraries(example_dslink ${Boost_LIBRARIES})
+target_link_libraries(example_dslink ${OPENSSL_LIBRARIES})
+target_link_libraries(example_dslink crypto)
+
+
+add_dependencies(example_dslink dsa_sdk)
