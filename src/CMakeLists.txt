@@ -4,20 +4,18 @@ project(dslink-cpp-example)
 # add sources
 set(SOURCES example_main.cc)
 
-set(PROJECT_INCLUDE_DIR ${DSA_SDK_SOURCE_DIR}/include)
 set(DSA_SDK_SOURCE ${DSA_SDK_SOURCE_DIR}/src)
 set(DSA_SDK_INCLUDE ${DSA_SDK_SOURCE_DIR}/include)
 set(DSA_SDK_DEPS ${DSA_SDK_SOURCE_DIR}/deps)
 
 include_directories(SYSTEM ${OPENSSL_INCLUDE_DIR})
-include_directories(${PROJECT_INCLUDE_DIR})
+include_directories(${DSA_SDK_INCLUDE})
 include_directories(${DSA_SDK_DEPS}/msgpack/include)
 include_directories(${DSA_SDK_DEPS}/jansson-build/include)
 include_directories(${Boost_INCLUDE_DIR})
 
-
 include_directories("${CMAKE_SOURCE_DIR}/src")
-include_directories("./include")
+include_directories("${CMAKE_SOURCE_DIR}/include")
 include_directories("${DSA_SDK_SOURCE}/sdk")
 include_directories("${DSA_SDK_INCLUDE}")
 
@@ -30,6 +28,6 @@ if (UNIX)
     target_link_libraries(${TARGET_NAME} dl pthread)
 endif ()
 
-if (NOT USE_PREBUILT_DSA_SDK)
+if (NOT PREBUILT_SDK_PATH)
     add_dependencies(${TARGET_NAME} ${DSA_SDK_LIBRARY})
 endif ()
