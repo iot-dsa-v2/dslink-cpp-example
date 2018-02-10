@@ -4,9 +4,9 @@ project(dslink-cpp-example)
 # add sources
 set(SOURCES example_main.cc)
 
-set(DSA_SDK_SOURCE ${DSA_SDK_SOURCE_DIR}/src)
-set(DSA_SDK_INCLUDE ${DSA_SDK_SOURCE_DIR}/include)
-set(DSA_SDK_DEPS ${DSA_SDK_SOURCE_DIR}/deps)
+set(DSA_SDK_SOURCE ${SDK_PROJECT_SOURCE_DIR}/src)
+set(DSA_SDK_INCLUDE ${SDK_PROJECT_SOURCE_DIR}/include)
+set(DSA_SDK_DEPS ${SDK_PROJECT_SOURCE_DIR}/deps)
 
 include_directories(SYSTEM ${OPENSSL_INCLUDE_DIR})
 include_directories(${DSA_SDK_INCLUDE})
