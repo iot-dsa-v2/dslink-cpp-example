@@ -43,8 +43,21 @@ else ()
     set(DSA_SDK_LIBRARY dsa_sdk)
 endif ()
 
+set(DSA_SDK_SOURCE ${SDK_PROJECT_SOURCE_DIR}/src)
+set(DSA_SDK_INCLUDE ${SDK_PROJECT_SOURCE_DIR}/include)
+set(DSA_SDK_DEPS ${SDK_PROJECT_SOURCE_DIR}/deps)
+
 set(SDK_PROJECT_INCLUDE_DIR ${SDK_PROJECT_SOURCE_DIR}/include)
 include(${SDK_PROJECT_SOURCE_DIR}/CMakeListsConfig.txt)
+
+include_directories(SYSTEM ${OPENSSL_INCLUDE_DIR})
+include_directories(${Boost_INCLUDE_DIR})
+include_directories(${DSA_SDK_INCLUDE})
+include_directories(${DSA_SDK_DEPS}/msgpack/include)
+include_directories(${DSA_SDK_DEPS}/jansson-build/include)
+include_directories("${DSA_SDK_SOURCE}/sdk")
+include_directories("${CMAKE_SOURCE_DIR}/src")
+include_directories("${CMAKE_SOURCE_DIR}/include")
 
 add_subdirectory("./src")
 if (NOT PREBUILT_SDK_PATH)
