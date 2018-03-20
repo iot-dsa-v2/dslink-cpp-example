@@ -23,11 +23,8 @@ if (PREBUILT_SDK_BINARY_PATH)
     set(SDK_PROJECT_BINARY_DIR ${PREBUILT_SDK_BINARY_PATH})
 
     if (UNIX OR MACOSX)
-        if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-            find_library(DSA_SDK_LIBRARY dsa_sdkd ${SDK_PROJECT_BINARY_DIR}/src/sdk)
-        elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
-            find_library(DSA_SDK_LIBRARY dsa_sdk ${SDK_PROJECT_BINARY_DIR}/src/sdk)
-        endif()
+        find_library(DSA_SDK_LIBRARY dsa_sdk ${SDK_PROJECT_BINARY_DIR}/src/sdk)
+        find_library(DSA_SDK_LIBRARY dsa_sdkd ${SDK_PROJECT_BINARY_DIR}/src/sdk)
     endif(UNIX OR MACOSX)
 
     if (WIN32)
